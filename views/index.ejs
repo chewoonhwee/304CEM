@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOODIE</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+      /*Text CSS*/
+      h1 {
+      text-align: center;
+      text-transform: uppercase;
+      color: #4CAF50;
+      }
+
+      h2 {
+      text-transform: uppercase;
+      color: #4CAF50;
+      }
+
+      h4 {
+      text-transform: uppercase;
+      color: #000000;
+      }
+      /*End of Text CSS*/
+
+      /*Add Food CSS*/
+      .header {
+        padding: 60px;
+        text-align: center;
+        background: #77ca7b;
+        color: white;
+        font-family: Georgia, serif;
+        font-size: 30px;
+      }
+
+      .search {
+        border: none;
+        color: black;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+      }
+
+      .button {
+        background-color: #ddd; /* Gray */
+        border: none;
+        color: black;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+      }
+      /*End of Add Food CSS*/
+
+      /*Edit Form CSS*/
+      .input[type=text], select {
+      width: 20%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      }
+
+      .input[type=submit] {
+        width: 20%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .input[type=submit]:hover {
+        background-color: #45a049;
+      }
+
+      div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+      }
+      /*End of Edit Form CSS*/
+
+      /*List Table CSS*/
+      .table {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      .table td, .table th {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+
+      .table tr:nth-child(even){background-color: #f2f2f2;}
+
+      .table tr:hover {background-color: #ddd;}
+
+      .table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
+      }
+      /*End of List Table CSS*/
+    </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Foodie</h1>
+    <form class="" action="/getFood" method="get">
+      <p>Search for Everything Yummy</p>     
+      <input type="text" class="search" name="title" placeholder="Search for Food...">
+      <button type="submit" class="button">Search</button> 
+    </form>            
+  </div>
+  <div>
+    <h2>Edit Food</h2>
+    <form class="editFood" action="/editFood" method="get">
+        <h4>Food Name:</h4>
+        <select name="title">
+            <%foodList.forEach(food => {%>
+                <option value="<%= food.title %>"><%= food.title %></option>
+            <%})%>
+        </select>
+        <br>
+        <h4>Area:</h4> <input class="search" type="text" name="area" placeholder="e.g Asia">
+        <br><br>
+        <input class="button" type="submit" value="Update">
+    </form>
+  </div>
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Image</th>
+          <th scope="col">Area</th>
+          <th scope="col">Category</th>
+          <th scope="col">Instructions</th>
+          <th scope="col">Delete</th>     
+        </tr>
+      </thead>
+      <tbody>
+        <%foodList.forEach(food => {%>
+            <tr>
+                <th scope="row"><%= food.title %></th>
+                <td><img src = "<%= food.image %>" width="300" height="293" /></td>
+                <td><%= food.area %></td>
+                <td><%= food.category %></td>
+                <td><%= food.instruction %></td>
+                <td><a href="/deleteFood?title=<%= food._id%>">Delete</a></td>
+            </tr>           
+        <%})%>
+      </tbody>
+  </table>
+</body>
+</html>
